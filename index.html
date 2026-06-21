@@ -13,6 +13,7 @@
         font-family: monospace, sans-serif;
         font-size: 16px;
         line-height: normal;
+        overflow-x: hidden;
       }
 
       pre {
@@ -20,6 +21,10 @@
         font-family: inherit;
         line-height: normal;
         white-space: pre;
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
       }
 
       .title {
@@ -36,6 +41,8 @@
       a:visited {
         color: #008000;
         text-decoration: none;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: rgba(255, 255, 0, 0.5);
       }
 
       .folder:hover {
@@ -51,6 +58,12 @@
         text-decoration: underline;
         text-decoration-color: #008000;
         text-underline-offset: 2px;
+      }
+
+      @media (max-width: 640px) {
+        body {
+          padding: 12px;
+        }
       }
     </style>
   </head>

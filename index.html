@@ -63,6 +63,14 @@
       @media (max-width: 640px) {
         body {
           padding: 12px;
+          font-size: 15px;
+        }
+
+        pre {
+          white-space: pre-wrap;
+          overflow-wrap: anywhere;
+          word-break: break-word;
+          overflow-x: visible;
         }
       }
     </style>
@@ -79,7 +87,7 @@
 │   └── <a href="data:text/html;base64,PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KICA8aGVhZD4KICAgIDxtZXRhIGNoYXJzZXQ9IlVURi04IiAvPgogICAgPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiIC8+CiAgICA8dGl0bGU+Y2hhbm5lbC50eHQ8L3RpdGxlPgogIDwvaGVhZD4KICA8Ym9keT4KICAgIDxwcmU+WU9VVFVCRQoKQ2hhbm5lbDogYWZzdW5tb29zYQpVUkw6IDxhIGhyZWY9Imh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL0BhZnN1bm1vb3NhIj5odHRwczovL3d3dy55b3V0dWJlLmNvbS9AYWZzdW5tb29zYTwvYT48L3ByZT4KICA8L2JvZHk+CjwvaHRtbD4K">channel.txt</a>
 ├── <span class="folder">music</span>
 │   ├── <a href="data:text/html;base64,PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KICA8aGVhZD4KICAgIDxtZXRhIGNoYXJzZXQ9IlVURi04IiAvPgogICAgPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiIC8+CiAgICA8dGl0bGU+c2xvdWNoPC90aXRsZT4KICA8L2hlYWQ+CiAgPGJvZHk+CiAgICA8cHJlPk1VU0lDIC8gU0xPVUNICgpJbnN0YWdyYW06IDxhIGhyZWY9Imh0dHBzOi8vd3d3Lmluc3RhZ3JhbS5jb20vcGxlYXNlZG9udHNsb3VjaC8iPmh0dHBzOi8vd3d3Lmluc3RhZ3JhbS5jb20vcGxlYXNlZG9udHNsb3VjaC88L2E+ClRyYWNrOiBkb2xscwpTcG90aWZ5OiA8YSBocmVmPSJodHRwczovL29wZW4uc3BvdGlmeS5jb20vdHJhY2svMTRvcHhGS25qVVBZam1EUHRkWkJKWj9zaT1iYmE5OWM2M2JkMDQ0MTkwIj5odHRwczovL29wZW4uc3BvdGlmeS5jb20vdHJhY2svMTRvcHhGS25qVVBZam1EUHRkWkJKWj9zaT1iYmE5OWM2M2JkMDQ0MTkwPC9hPgoKc2xvdWNoIGlzIHdpdGggbXkgZnJpZW5kIGthbmlzaGsgKDxhIGhyZWY9Imh0dHBzOi8vd3d3Lmluc3RhZ3JhbS5jb20vZG9ubnl3b2ttYW4vIj5odHRwczovL3d3dy5pbnN0YWdyYW0uY29tL2Rvbm55d29rbWFuLzwvYT4pLjwvcHJlPgogIDwvYm9keT4KPC9odG1sPgo=">slouch.txt</a>
-│   └── <a href="data:text/html;base64,PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KICA8aGVhZD4KICAgIDxtZXRhIGNoYXJzZXQ9IlVURi04IiAvPgogICAgPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiIC8+CiAgICA8dGl0bGU+ZG93am9uZXM8L3RpdGxlPgogIDwvaGVhZD4KICA8Ym9keT4KICAgIDxwcmU+TVVTSUMgLyBET1dKT05FUwoKWW91VHViZTogPGEgaHJlZj0iaHR0cHM6Ly93d3cueW91dHViZS5jb20vQGRvd2pvbmVzXzEiPmh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL0Bkb3dqb25lc18xPC9hPgpJbnN0YWdyYW06IDxhIGhyZWY9Imh0dHBzOi8vd3d3Lmluc3RhZ3JhbS5jb20vZG93am9uZXNzc3Nzcy8iPmh0dHBzOi8vd3d3Lmluc3RhZ3JhbS5jb20vZG93am9uZXNzc3Nzcy88L2E+Cgpkb3dqb25lcyBpcyBteSBkaiBuYW1lIHdpdGggbXkgZnJpZW5kIFVkYXkgKDxhIGhyZWY9Imh0dHBzOi8vd3d3Lmluc3RhZ3JhbS5jb20vdWRheS53YXYvIj5odHRwczovL3d3dy5pbnN0YWdyYW0uY29tL3VkYXkud2F2LzwvYT4pLjwvcHJlPgogIDwvYm9keT4KPC9odG1sPgo=">dowjones.txt</a>
+│   └── <a href="data:text/html;base64,PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KICA8aGVhZD4KICAgIDxtZXRhIGNoYXJzZXQ9IlVURi04IiAvPgogICAgPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiIC8+CiAgICA8dGl0bGU+ZG93am9uZXM8L3RpdGxlPgogIDwvaGVhZD4KICA8Ym9keT4KICAgIDxwcmU+TVVTSUMgLyBET1dKT05FUwoKWW91VHViZTogPGEgaHJlZj0iaHR0cHM6Ly93d3cueW91dHViZS5jb20vQGRvd2pvbmVzXzEiPmh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL0Bkb3dqb25lc18xPC9hPgpJbnN0YWdyYW06IDxhIGhyZWY9Imh0dHBzOi8vd3d3Lmluc3RhZ3JhbS5jb20vZG93am9uZXNzc3Nzcy8iPmh0dHBzOi8vd3d3Lmluc3RhZ3JhbS5jb20vZG93am9uZXNzc3Nzcy88L2E+CgpJIGRqIHVuZGVyIHRoZSBuYW1lICdkb3dqb25lcycgd2l0aCBteSBmcmllbmQgVWRheSAoPGEgaHJlZj0iaHR0cHM6Ly93d3cuaW5zdGFncmFtLmNvbS91ZGF5Lndhdi8iPmh0dHBzOi8vd3d3Lmluc3RhZ3JhbS5jb20vdWRheS53YXYvPC9hPikuPC9wcmU+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==">dowjones.txt</a>
 ├── <span class="folder">monthly_suggestions</span>
 │   ├── <a href="data:text/html;base64,PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KICA8aGVhZD4KICAgIDxtZXRhIGNoYXJzZXQ9IlVURi04IiAvPgogICAgPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiIC8+CiAgICA8dGl0bGU+YXJ0aWNsZS50eHQ8L3RpdGxlPgogIDwvaGVhZD4KICA8Ym9keT4KICAgIDxwcmU+TU9OVEhMWSBTVUdHRVNUSU9OIC8gQVJUSUNMRQoKTW9udGg6IEp1bmUgMjAyNgpUaXRsZTogVGhlIFByaW1pdGl2ZSBBY2N1bXVsYXRpb24gb2YgQ29vbApBdXRob3IvU291cmNlOiBUaGUgTmV3IElucXVpcnkKVVJMOiA8YSBocmVmPSJodHRwczovL3RoZW5ld2lucXVpcnkuY29tL2Jsb2cvdGhlLXByaW1pdGl2ZS1hY2N1bXVsYXRpb24tb2YtY29vbC8iPmh0dHBzOi8vdGhlbmV3aW5xdWlyeS5jb20vYmxvZy90aGUtcHJpbWl0aXZlLWFjY3VtdWxhdGlvbi1vZi1jb29sLzwvYT48L3ByZT4KICA8L2JvZHk+CjwvaHRtbD4K">article.txt</a>
 │   ├── <a href="data:text/html;base64,PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KICA8aGVhZD4KICAgIDxtZXRhIGNoYXJzZXQ9IlVURi04IiAvPgogICAgPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiIC8+CiAgICA8dGl0bGU+bXVzaWMudHh0PC90aXRsZT4KICA8L2hlYWQ+CiAgPGJvZHk+CiAgICA8cHJlPk1PTlRITFkgU1VHR0VTVElPTiAvIE1VU0lDCgpNb250aDogSnVuZSAyMDI2ClBsYXlsaXN0OiBmcmVlIGdhbWUgNQpQbGF0Zm9ybTogU3BvdGlmeQpVUkw6IDxhIGhyZWY9Imh0dHBzOi8vb3Blbi5zcG90aWZ5LmNvbS9wbGF5bGlzdC82TzFVblVWRUdGR2xXekVjZWhXUFdpP3NpPTdiNWZhNzJlMTM5YTRhYWYiPmh0dHBzOi8vb3Blbi5zcG90aWZ5LmNvbS9wbGF5bGlzdC82TzFVblVWRUdGR2xXekVjZWhXUFdpP3NpPTdiNWZhNzJlMTM5YTRhYWY8L2E+PC9wcmU+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==">music.txt</a>
@@ -93,17 +101,55 @@
         var marker = "base64,";
         var i;
 
+        function injectMobileFitStyles(htmlText) {
+          var styleTag =
+            '<style id="mobile-fit-style">' +
+            '@media (max-width: 640px) {' +
+            'html, body { max-width: 100%; overflow-x: hidden; }' +
+            'body { margin: 0; padding: 12px; box-sizing: border-box; }' +
+            'pre { white-space: pre-wrap !important; overflow-wrap: anywhere; word-break: break-word; max-width: 100%; }' +
+            'a { word-break: break-all; }' +
+            '}' +
+            '</style>';
+
+          if (htmlText.indexOf('id="mobile-fit-style"') !== -1) {
+            return htmlText;
+          }
+
+          if (/<\/head>/i.test(htmlText)) {
+            return htmlText.replace(/<\/head>/i, styleTag + "</head>");
+          }
+
+          if (/<body[^>]*>/i.test(htmlText)) {
+            return htmlText.replace(/<body([^>]*)>/i, '<body$1>' + styleTag);
+          }
+
+          return styleTag + htmlText;
+        }
+
         function base64ToBlobUrl(base64Value) {
           var binary = atob(base64Value);
           var length = binary.length;
           var bytes = new Uint8Array(length);
+          var decodedHtml;
+          var mobileReadyHtml;
           var j;
 
           for (j = 0; j < length; j += 1) {
             bytes[j] = binary.charCodeAt(j);
           }
 
-          var blob = new Blob([bytes], { type: "text/html;charset=utf-8" });
+          if (typeof TextDecoder === "function") {
+            decodedHtml = new TextDecoder("utf-8").decode(bytes);
+          } else {
+            decodedHtml = binary;
+          }
+
+          mobileReadyHtml = injectMobileFitStyles(decodedHtml);
+
+          var blob = new Blob([mobileReadyHtml], {
+            type: "text/html;charset=utf-8",
+          });
           return URL.createObjectURL(blob);
         }
 

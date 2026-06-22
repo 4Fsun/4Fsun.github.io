@@ -148,6 +148,35 @@
           return styleTag + htmlText;
         }
 
+        function injectExternalLinkBehavior(htmlText) {
+          var scriptTag =
+            '<script id="external-link-target-script">' +
+            '(function () {' +
+            'var links = document.querySelectorAll(\'a[href^="http://"], a[href^="https://"]\');' +
+            'var i;' +
+            'for (i = 0; i < links.length; i += 1) {' +
+            'links[i].setAttribute("target", "_blank");' +
+            'links[i].setAttribute("rel", "noopener noreferrer");' +
+            '}' +
+            '})();' +
+            '</scr' +
+            'ipt>';
+
+          if (htmlText.indexOf('id="external-link-target-script"') !== -1) {
+            return htmlText;
+          }
+
+          if (/<\/body>/i.test(htmlText)) {
+            return htmlText.replace(/<\/body>/i, scriptTag + "</body>");
+          }
+
+          if (/<\/html>/i.test(htmlText)) {
+            return htmlText.replace(/<\/html>/i, scriptTag + "</html>");
+          }
+
+          return htmlText + scriptTag;
+        }
+
         function base64ToBlobUrl(base64Value) {
           var binary = atob(base64Value);
           var length = binary.length;
@@ -167,6 +196,7 @@
           }
 
           mobileReadyHtml = injectMobileFitStyles(decodedHtml);
+          mobileReadyHtml = injectExternalLinkBehavior(mobileReadyHtml);
 
           var blob = new Blob([mobileReadyHtml], {
             type: "text/html;charset=utf-8",

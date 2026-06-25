@@ -94,6 +94,53 @@
           font-size: 10px;
         }
       }
+
+      #guestbook-canvas-app {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: #ffffff;
+        z-index: 50;
+      }
+
+      #guestbook-canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: #ffffff;
+        cursor: text;
+      }
+
+      #guestbook-canvas.dragging {
+        cursor: grabbing;
+      }
+
+      #guestbook-toolbar {
+        position: fixed;
+        top: 8px;
+        left: 8px;
+        z-index: 55;
+        background: #ffffff;
+        border: 1px solid #000000;
+        color: #000000;
+        padding: 4px 8px;
+        font-family: monospace, sans-serif;
+        font-size: 12px;
+        line-height: 1.3;
+      }
+
+      #guestbook-toolbar a,
+      #guestbook-toolbar a:visited {
+        color: #0000ee;
+      }
+
+      #guestbook-toolbar a:hover,
+      #guestbook-toolbar a:focus-visible {
+        background: #ffff00;
+      }
     </style>
   </head>
   <body>
@@ -108,11 +155,14 @@
 │   └── <a href="data:text/html;base64,PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KICA8aGVhZD4KICAgIDxtZXRhIGNoYXJzZXQ9IlVURi04IiAvPgogICAgPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiIC8+CiAgICA8dGl0bGU+Y2hhbm5lbC50eHQ8L3RpdGxlPgogIDwvaGVhZD4KICA8Ym9keT4KICAgIDxwcmU+WU9VVFVCRQoKQ2hhbm5lbDogYWZzdW5tb29zYQpVUkw6IDxhIGhyZWY9Imh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL0BhZnN1bm1vb3NhIj5odHRwczovL3d3dy55b3V0dWJlLmNvbS9AYWZzdW5tb29zYTwvYT48L3ByZT4KICA8L2JvZHk+CjwvaHRtbD4K">channel.txt</a>
 ├── <span class="folder">music</span>
 │   ├── <a href="data:text/html;base64,PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KICA8aGVhZD4KICAgIDxtZXRhIGNoYXJzZXQ9IlVURi04IiAvPgogICAgPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiIC8+CiAgICA8dGl0bGU+c2xvdWNoPC90aXRsZT4KICA8L2hlYWQ+CiAgPGJvZHk+CiAgICA8cHJlPk1VU0lDIC8gU0xPVUNICgpJbnN0YWdyYW06IDxhIGhyZWY9Imh0dHBzOi8vd3d3Lmluc3RhZ3JhbS5jb20vcGxlYXNlZG9udHNsb3VjaC8iPmh0dHBzOi8vd3d3Lmluc3RhZ3JhbS5jb20vcGxlYXNlZG9udHNsb3VjaC88L2E+ClRyYWNrOiBkb2xscwpTcG90aWZ5OiA8YSBocmVmPSJodHRwczovL29wZW4uc3BvdGlmeS5jb20vdHJhY2svMTRvcHhGS25qVVBZam1EUHRkWkJKWj9zaT1iYmE5OWM2M2JkMDQ0MTkwIj5odHRwczovL29wZW4uc3BvdGlmeS5jb20vdHJhY2svMTRvcHhGS25qVVBZam1EUHRkWkJKWj9zaT1iYmE5OWM2M2JkMDQ0MTkwPC9hPgoKc2xvdWNoIGlzIHdpdGggbXkgZnJpZW5kIGthbmlzaGsgKDxhIGhyZWY9Imh0dHBzOi8vd3d3Lmluc3RhZ3JhbS5jb20vZG9ubnl3b2ttYW4vIj5odHRwczovL3d3dy5pbnN0YWdyYW0uY29tL2Rvbm55d29rbWFuLzwvYT4pLjwvcHJlPgogIDwvYm9keT4KPC9odG1sPgo=">slouch.txt</a>
-│   └── <a href="data:text/html;base64,PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KICA8aGVhZD4KICAgIDxtZXRhIGNoYXJzZXQ9IlVURi04IiAvPgogICAgPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiIC8+CiAgICA8dGl0bGU+ZG93am9uZXM8L3RpdGxlPgogIDwvaGVhZD4KICA8Ym9keT4KICAgIDxwcmU+TVVTSUMgLyBET1dKT05FUwoKWW91VHViZTogPGEgaHJlZj0iaHR0cHM6Ly93d3cueW91dHViZS5jb20vQGRvd2pvbmVzXzEiPmh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL0Bkb3dqb25lc18xPC9hPgpJbnN0YWdyYW06IDxhIGhyZWY9Imh0dHBzOi8vd3d3Lmluc3RhZ3JhbS5jb20vZG93am9uZXNzc3Nzcy8iPmh0dHBzOi8vd3d3Lmluc3RhZ3JhbS5jb20vZG93am9uZXNzc3Nzcy88L2E+CgpJIGRqIHVuZGVyIHRoZSBuYW1lICdkb3dqb25lcycgd2l0aCBteSBmcmllbmQgVWRheSAoPGEgaHJlZj0iaHR0cHM6Ly93d3cuaW5zdGFncmFtLmNvbS91ZGF5Lndhdi8iPmh0dHBzOi8vd3d3Lmluc3RhZ3JhbS5jb20vdWRheS53YXYvPC9hPikuPC9wcmU+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==">dowjones.txt</a>
+│   ├── <a href="data:text/html;base64,PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KICA8aGVhZD4KICAgIDxtZXRhIGNoYXJzZXQ9IlVURi04IiAvPgogICAgPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiIC8+CiAgICA8dGl0bGU+ZG93am9uZXM8L3RpdGxlPgogIDwvaGVhZD4KICA8Ym9keT4KICAgIDxwcmU+TVVTSUMgLyBET1dKT05FUwoKWW91VHViZTogPGEgaHJlZj0iaHR0cHM6Ly93d3cueW91dHViZS5jb20vQGRvd2pvbmVzXzEiPmh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL0Bkb3dqb25lc18xPC9hPgpJbnN0YWdyYW06IDxhIGhyZWY9Imh0dHBzOi8vd3d3Lmluc3RhZ3JhbS5jb20vZG93am9uZXNzc3Nzcy8iPmh0dHBzOi8vd3d3Lmluc3RhZ3JhbS5jb20vZG93am9uZXNzc3Nzcy88L2E+CgpJIGRqIHVuZGVyIHRoZSBuYW1lICdkb3dqb25lcycgd2l0aCBteSBmcmllbmQgVWRheSAoPGEgaHJlZj0iaHR0cHM6Ly93d3cuaW5zdGFncmFtLmNvbS91ZGF5Lndhdi8iPmh0dHBzOi8vd3d3Lmluc3RhZ3JhbS5jb20vdWRheS53YXYvPC9hPikuPC9wcmU+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==">dowjones.txt</a>
+│   └── <a href="data:text/html;base64,PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KICA8aGVhZD4KICAgIDxtZXRhIGNoYXJzZXQ9IlVURi04IiAvPgogICAgPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiIC8+CiAgICA8dGl0bGU+c3BvdGl5X2FjY291bnQudHh0PC90aXRsZT4KICA8L2hlYWQ+CiAgPGJvZHk+CiAgICA8cHJlPk1VU0lDIC8gU1BPVElGWSBBQ0NPVU5UCgpTcG90aWZ5IEFjY291bnQ6IDxhIGhyZWY9Imh0dHBzOi8vb3Blbi5zcG90aWZ5LmNvbS91c2VyLzIxYWxjcDNtbjRnZmpnZnppa2drMno2bWk/c2k9MDI4MWZlOGViNTQyNDdmNCI+aHR0cHM6Ly9vcGVuLnNwb3RpZnkuY29tL3VzZXIvMjFhbGNwM21uNGdmamdmemlrZ2syejZtaT9zaT0wMjgxZmU4ZWI1NDI0N2Y0PC9hPjwvcHJlPgogIDwvYm9keT4KPC9odG1sPgo=">spotiy_account.txt</a>
 ├── <span class="folder">monthly_suggestions</span>
 │   ├── <a href="data:text/html;base64,PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KICA8aGVhZD4KICAgIDxtZXRhIGNoYXJzZXQ9IlVURi04IiAvPgogICAgPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiIC8+CiAgICA8dGl0bGU+YXJ0aWNsZS50eHQ8L3RpdGxlPgogIDwvaGVhZD4KICA8Ym9keT4KICAgIDxwcmU+TU9OVEhMWSBTVUdHRVNUSU9OIC8gQVJUSUNMRQoKTW9udGg6IEp1bmUgMjAyNgpUaXRsZTogVGhlIFByaW1pdGl2ZSBBY2N1bXVsYXRpb24gb2YgQ29vbApBdXRob3IvU291cmNlOiBUaGUgTmV3IElucXVpcnkKVVJMOiA8YSBocmVmPSJodHRwczovL3RoZW5ld2lucXVpcnkuY29tL2Jsb2cvdGhlLXByaW1pdGl2ZS1hY2N1bXVsYXRpb24tb2YtY29vbC8iPmh0dHBzOi8vdGhlbmV3aW5xdWlyeS5jb20vYmxvZy90aGUtcHJpbWl0aXZlLWFjY3VtdWxhdGlvbi1vZi1jb29sLzwvYT48L3ByZT4KICA8L2JvZHk+CjwvaHRtbD4K">article.txt</a>
 │   ├── <a href="data:text/html;base64,PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KICA8aGVhZD4KICAgIDxtZXRhIGNoYXJzZXQ9IlVURi04IiAvPgogICAgPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiIC8+CiAgICA8dGl0bGU+bXVzaWMudHh0PC90aXRsZT4KICA8L2hlYWQ+CiAgPGJvZHk+CiAgICA8cHJlPk1PTlRITFkgU1VHR0VTVElPTiAvIE1VU0lDCgpNb250aDogSnVuZSAyMDI2ClBsYXlsaXN0OiBmcmVlIGdhbWUgNQpQbGF0Zm9ybTogU3BvdGlmeQpVUkw6IDxhIGhyZWY9Imh0dHBzOi8vb3Blbi5zcG90aWZ5LmNvbS9wbGF5bGlzdC82TzFVblVWRUdGR2xXekVjZWhXUFdpP3NpPTdiNWZhNzJlMTM5YTRhYWYiPmh0dHBzOi8vb3Blbi5zcG90aWZ5LmNvbS9wbGF5bGlzdC82TzFVblVWRUdGR2xXekVjZWhXUFdpP3NpPTdiNWZhNzJlMTM5YTRhYWY8L2E+PC9wcmU+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==">music.txt</a>
 │   └── <a href="data:text/html;base64,PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KICA8aGVhZD4KICAgIDxtZXRhIGNoYXJzZXQ9IlVURi04IiAvPgogICAgPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiIC8+CiAgICA8dGl0bGU+bW92aWUudHh0PC90aXRsZT4KICA8L2hlYWQ+CiAgPGJvZHk+CiAgICA8cHJlPk1PTlRITFkgU1VHR0VTVElPTiAvIE1PVklFCgpNb250aDogSnVuZSAyMDI2ClRpdGxlOiBNb3J2ZXJuIENhbGxhcgpTb3VyY2U6IExldHRlcmJveGQKVVJMOiA8YSBocmVmPSJodHRwczovL2xldHRlcmJveGQuY29tL2ZpbG0vbW9ydmVybi1jYWxsYXIvIj5odHRwczovL2xldHRlcmJveGQuY29tL2ZpbG0vbW9ydmVybi1jYWxsYXIvPC9hPjwvcHJlPgogIDwvYm9keT4KPC9odG1sPgo=">movie.txt</a>
+├── <span class="folder">guestbook</span>
+│   └── <a href="#guestbook_app">guestbook.txt</a>
 └── <span class="folder">archived_page</span>
     └── <a href="data:text/html;base64,PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9ImVuIj4KICA8aGVhZD4KICAgIDxtZXRhIGNoYXJzZXQ9IlVURi04IiAvPgogICAgPG1ldGEgbmFtZT0idmlld3BvcnQiIGNvbnRlbnQ9IndpZHRoPWRldmljZS13aWR0aCwgaW5pdGlhbC1zY2FsZT0xLjAiIC8+CiAgICA8dGl0bGU+TW9vc2EgS2FsaW11bGxhaDwvdGl0bGU+CiAgICA8bWV0YSBuYW1lPSJkZXNjcmlwdGlvbiIgY29udGVudD0iUXVhbnRpdGF0aXZlIEZpbmFuY2Ugc3R1ZGVudCwgcGhvdG9ncmFwaGVyLCBjb250ZW50IGNyZWF0b3IsIGFuZCBjYWxpc3RoZW5pY3MgYXRobGV0ZSIgLz4KICAgIDxtZXRhIG5hbWU9ImF1dGhvciIgY29udGVudD0iTW9vc2EgS2FsaW11bGxhaCIgLz4KCiAgICA8bWV0YSBwcm9wZXJ0eT0ib2c6dGl0bGUiIGNvbnRlbnQ9Ik1vb3NhIEthbGltdWxsYWgiIC8+CiAgICA8bWV0YSBwcm9wZXJ0eT0ib2c6ZGVzY3JpcHRpb24iIGNvbnRlbnQ9IlF1YW50aXRhdGl2ZSBGaW5hbmNlIHN0dWRlbnQsIHBob3RvZ3JhcGhlciwgY29udGVudCBjcmVhdG9yLCBhbmQgY2FsaXN0aGVuaWNzIGF0aGxldGUiIC8+CiAgICA8bWV0YSBwcm9wZXJ0eT0ib2c6dHlwZSIgY29udGVudD0id2Vic2l0ZSIgLz4KICAgIDxtZXRhIHByb3BlcnR5PSJvZzppbWFnZSIgY29udGVudD0iaHR0cHM6Ly9sb3ZhYmxlLmRldi9vcGVuZ3JhcGgtaW1hZ2UtcDk4cHFnLnBuZyIgLz4KCiAgICA8bWV0YSBuYW1lPSJ0d2l0dGVyOmNhcmQiIGNvbnRlbnQ9InN1bW1hcnlfbGFyZ2VfaW1hZ2UiIC8+CiAgICA8bWV0YSBuYW1lPSJ0d2l0dGVyOnNpdGUiIGNvbnRlbnQ9IkBsb3ZhYmxlX2RldiIgLz4KICAgIDxtZXRhIG5hbWU9InR3aXR0ZXI6aW1hZ2UiIGNvbnRlbnQ9Imh0dHBzOi8vbG92YWJsZS5kZXYvb3BlbmdyYXBoLWltYWdlLXA5OHBxZy5wbmciIC8+CgogICAgPHN0eWxlPgogICAgICAvKiBSZXNldCBhbmQgYmFzZSBzdHlsZXMgKi8KICAgICAgKiwgKjo6YmVmb3JlLCAqOjphZnRlciB7CiAgICAgICAgYm94LXNpemluZzogYm9yZGVyLWJveDsKICAgICAgfQogICAgICAKICAgICAgKiB7CiAgICAgICAgbWFyZ2luOiAwOwogICAgICAgIHBhZGRpbmc6IDA7CiAgICAgICAgYm9yZGVyOiAwOwogICAgICB9CgogICAgICA6cm9vdCB7CiAgICAgICAgLS1iYWNrZ3JvdW5kOiAwIDAlIDEwMCU7CiAgICAgICAgLS1mb3JlZ3JvdW5kOiAwIDAlIDglOwogICAgICAgIC0tbXV0ZWQtZm9yZWdyb3VuZDogMCAwJSA0NiU7CiAgICAgICAgLS1hY2NlbnQ6IDIxOCAxMDAlIDUwJTsKICAgICAgICAtLXRleHQtYm9keTogMTZweDsKICAgICAgICAtLWxpbmUtaGVpZ2h0LXRpZ2h0OiAxLjM7CiAgICAgICAgLS1zcGFjZS1zbTogMC41cmVtOwogICAgICAgIC0tc3BhY2UtbWQ6IDAuNzVyZW07CiAgICAgICAgLS1zcGFjZS1sZzogMXJlbTsKICAgICAgICAtLXNwYWNlLXhsOiAxLjVyZW07CiAgICAgIH0KCiAgICAgIEBtZWRpYSAocHJlZmVycy1jb2xvci1zY2hlbWU6IGRhcmspIHsKICAgICAgICA6cm9vdCB7CiAgICAgICAgICAtLWJhY2tncm91bmQ6IDAgMCUgOCU7CiAgICAgICAgICAtLWZvcmVncm91bmQ6IDAgMCUgOTIlOwogICAgICAgICAgLS1tdXRlZC1mb3JlZ3JvdW5kOiAwIDAlIDY1JTsKICAgICAgICAgIC0tYWNjZW50OiAyMTggMTAwJSA2MCU7CiAgICAgICAgfQogICAgICB9CgogICAgICBib2R5IHsKICAgICAgICBmb250LWZhbWlseTogJ1RpbWVzIE5ldyBSb21hbicsIFRpbWVzLCBzZXJpZjsKICAgICAgICBmb250LXNpemU6IHZhcigtLXRleHQtYm9keSk7CiAgICAgICAgbGluZS1oZWlnaHQ6IHZhcigtLWxpbmUtaGVpZ2h0LXRpZ2h0KTsKICAgICAgICBiYWNrZ3JvdW5kLWNvbG9yOiBoc2wodmFyKC0tYmFja2dyb3VuZCkpOwogICAgICAgIGNvbG9yOiBoc2wodmFyKC0tZm9yZWdyb3VuZCkpOwogICAgICAgIG1pbi1oZWlnaHQ6IDEwMHZoOwogICAgICAgIHBhZGRpbmc6IDJyZW0gMXJlbTsKICAgICAgfQoKICAgICAgQG1lZGlhIChtaW4td2lkdGg6IDc2OHB4KSB7CiAgICAgICAgYm9keSB7CiAgICAgICAgICBwYWRkaW5nOiAzcmVtIDJyZW07CiAgICAgICAgfQogICAgICB9CgogICAgICAuY29udGFpbmVyIHsKICAgICAgICBtYXgtd2lkdGg6IDQycmVtOwogICAgICAgIG1hcmdpbjogMCBhdXRvOwogICAgICB9CgogICAgICAucHJvc2UgewogICAgICAgIG1heC13aWR0aDogNjVjaDsKICAgICAgICBsaW5lLWhlaWdodDogdmFyKC0tbGluZS1oZWlnaHQtdGlnaHQpOwogICAgICB9CgogICAgICAucHJvc2UgcCB7CiAgICAgICAgbWFyZ2luLWJvdHRvbTogdmFyKC0tc3BhY2Utc20pOwogICAgICB9CgogICAgICAucHJvc2UgcDpsYXN0LWNoaWxkIHsKICAgICAgICBtYXJnaW4tYm90dG9tOiAwOwogICAgICB9CgogICAgICAuc3BhY2UteS0zID4gKiArICogewogICAgICAgIG1hcmdpbi10b3A6IDAuNzVyZW07CiAgICAgIH0KCiAgICAgIC5zcGFjZS15LTIgPiAqICsgKiB7CiAgICAgICAgbWFyZ2luLXRvcDogMC41cmVtOwogICAgICB9CgogICAgICAubXQtNiB7CiAgICAgICAgbWFyZ2luLXRvcDogdmFyKC0tc3BhY2UteGwpOwogICAgICB9CgogICAgICAucHQtNCB7CiAgICAgICAgcGFkZGluZy10b3A6IDFyZW07CiAgICAgIH0KCiAgICAgIC5tYi0zIHsKICAgICAgICBtYXJnaW4tYm90dG9tOiAwLjc1cmVtOwogICAgICB9CgogICAgICAubXQtNCB7CiAgICAgICAgbWFyZ2luLXRvcDogMXJlbTsKICAgICAgfQoKICAgICAgLm10LTIgewogICAgICAgIG1hcmdpbi10b3A6IDAuNXJlbTsKICAgICAgfQoKICAgICAgLnBsLTQgewogICAgICAgIHBhZGRpbmctbGVmdDogMXJlbTsKICAgICAgfQoKICAgICAgLnRleHQtY2VudGVyIHsKICAgICAgICB0ZXh0LWFsaWduOiBjZW50ZXI7CiAgICAgIH0KCiAgICAgIGgxLCBoMiwgaDMgewogICAgICAgIGZvbnQtZmFtaWx5OiAnVGltZXMgTmV3IFJvbWFuJywgVGltZXMsIHNlcmlmOwogICAgICAgIGZvbnQtd2VpZ2h0OiBub3JtYWw7CiAgICAgICAgbGluZS1oZWlnaHQ6IDEuMjsKICAgICAgfQoKICAgICAgaDIgewogICAgICAgIGZvbnQtc2l6ZTogMS4yNXJlbTsKICAgICAgICBjb2xvcjogaHNsKHZhcigtLWZvcmVncm91bmQpKTsKICAgICAgfQoKICAgICAgYSB7CiAgICAgICAgY29sb3I6IGhzbCh2YXIoLS1hY2NlbnQpKTsKICAgICAgICB0ZXh0LWRlY29yYXRpb246IHVuZGVybGluZTsKICAgICAgICB0cmFuc2l0aW9uOiBvcGFjaXR5IDAuMnMgZWFzZTsKICAgICAgfQoKICAgICAgYTpob3ZlciB7CiAgICAgICAgb3BhY2l0eTogMC43OwogICAgICB9CgogICAgICBzdHJvbmcgewogICAgICAgIGZvbnQtd2VpZ2h0OiBib2xkOwogICAgICB9CgogICAgICBibG9ja3F1b3RlIHsKICAgICAgICBib3JkZXItbGVmdDogMnB4IHNvbGlkIGhzbCh2YXIoLS1hY2NlbnQpKTsKICAgICAgICBmb250LXN0eWxlOiBpdGFsaWM7CiAgICAgICAgY29sb3I6IGhzbCh2YXIoLS1tdXRlZC1mb3JlZ3JvdW5kKSk7CiAgICAgIH0KCiAgICAgIGNpdGUgewogICAgICAgIGRpc3BsYXk6IGJsb2NrOwogICAgICAgIGZvbnQtc3R5bGU6IG5vcm1hbDsKICAgICAgICBmb250LXNpemU6IDAuODc1cmVtOwogICAgICB9CgogICAgICAubm90LWl0YWxpYyB7CiAgICAgICAgZm9udC1zdHlsZTogbm9ybWFsOwogICAgICB9CiAgICA8L3N0eWxlPgogIDwvaGVhZD4KCiAgPGJvZHk+CiAgICA8ZGl2IGNsYXNzPSJjb250YWluZXIiPgogICAgICA8bWFpbiBjbGFzcz0icHJvc2UiPgogICAgICAgIDxkaXYgY2xhc3M9InNwYWNlLXktMyI+CiAgICAgICAgICA8cCBzdHlsZT0iZm9udC13ZWlnaHQ6IGJvbGQ7IHRleHQtZGVjb3JhdGlvbjogdW5kZXJsaW5lOyI+CiAgICAgICAgICAgIE1vb3NhIEthbGltdWxsYWgKICAgICAgICAgIDwvcD4KICAgICAgICAgIDxwPgogICAgICAgICAgICBIZWxsby4gSSBhbSBhIFF1YW50aXRhdGl2ZSBGaW5hbmNlIGFuZCBSaXNrIE1hbmFnZW1lbnQgU2NpZW5jZSBTdHVkZW50IGF0IFRoZSBDaGluZXNlIFVuaXZlcnNpdHkgb2YgSG9uZyBLb25nLiBCZXlvbmQgbXkgYWNhZGVtaWMgZm9jdXMsIEkgaGF2ZSBlcXVhbCBmYXNjaW5hdGlvbiB0b3dhcmRzIGFydCwgcGhpbG9zb3BoeSwgbGl0ZXJhdHVyZSwgZGVzaWduLCB0ZWNobm9sb2d5LCBtdXNpYywgZmlsbSwgYW5kIHBzeWNob2xvZ3kuCiAgICAgICAgICA8L3A+CgogICAgICAgICAgPHA+CiAgICAgICAgICAgIE15IHByb2Zlc3Npb25hbCBsaWZlIGluY2x1ZGVzIGJ1c2luZXNzIGRldmVsb3BtZW50IGNvbnN1bHRhbmN5LCBjb250ZW50IHByb2R1Y3Rpb24sIG1vZGVsaW5nLCAKICAgICAgICAgICAgPGEgCiAgICAgICAgICAgICAgaHJlZj0iaHR0cHM6Ly93d3cuaW5zdGFncmFtLmNvbS9pbGxuZXZlcnNlZWhlYXZlbi8iIAogICAgICAgICAgICAgIHRhcmdldD0iX2JsYW5rIiAKICAgICAgICAgICAgICByZWw9Im5vb3BlbmVyIG5vcmVmZXJyZXIiCiAgICAgICAgICAgID4KICAgICAgICAgICAgICBwaG90b2dyYXBoeSwKICAgICAgICAgICAgPC9hPiBhbmQgZmlsbW1ha2luZy4KICAgICAgICAgIDwvcD4KCiAgICAgICAgICA8cD4KICAgICAgICAgICAgSSBhbHNvIHdvcmsgd2l0aCBzb3VuZC4gSSBjcmVhdGUgbXVzaWMgd2l0aCBhIAogICAgICAgICAgICA8YSAKICAgICAgICAgICAgICBocmVmPSJodHRwczovL3d3dy5pbnN0YWdyYW0uY29tL2Rvbm55d29rbWFuLyIgCiAgICAgICAgICAgICAgdGFyZ2V0PSJfYmxhbmsiIAogICAgICAgICAgICAgIHJlbD0ibm9vcGVuZXIgbm9yZWZlcnJlciIKICAgICAgICAgICAgPgogICAgICAgICAgICAgIGZyaWVuZAogICAgICAgICAgICA8L2E+LiBXZSBhcmUgY2FsbGVkIAogICAgICAgICAgICA8YSAKICAgICAgICAgICAgICBocmVmPSJodHRwczovL3d3dy5pbnN0YWdyYW0uY29tL3BsZWFzZWRvbnRzbG91Y2gvIiAKICAgICAgICAgICAgICB0YXJnZXQ9Il9ibGFuayIgCiAgICAgICAgICAgICAgcmVsPSJub29wZW5lciBub3JlZmVycmVyIgogICAgICAgICAgICA+CiAgICAgICAgICAgICAgc2xvdWNoCiAgICAgICAgICAgIDwvYT4uCiAgICAgICAgICA8L3A+CgogICAgICAgICAgPHA+CiAgICAgICAgICAgIEhlcmUncyBteSAKICAgICAgICAgICAgPGEgCiAgICAgICAgICAgICAgaHJlZj0iaHR0cHM6Ly93d3cuaW5zdGFncmFtLmNvbS9hZnN1bm1vb3NhLyIgCiAgICAgICAgICAgICAgdGFyZ2V0PSJfYmxhbmsiIAogICAgICAgICAgICAgIHJlbD0ibm9vcGVuZXIgbm9yZWZlcnJlciIKICAgICAgICAgICAgPgogICAgICAgICAgICAgIGluc3RhZ3JhbQogICAgICAgICAgICA8L2E+LCBhbmQgCiAgICAgICAgICAgIDxhIAogICAgICAgICAgICAgIGhyZWY9Im1haWx0bzptb29zYWthbGltdWxsYWg2QGdtYWlsLmNvbSIKICAgICAgICAgICAgPgogICAgICAgICAgICAgIGVtYWlsCiAgICAgICAgICAgIDwvYT4uCiAgICAgICAgICA8L3A+CgogICAgICAgICAgPHA+CiAgICAgICAgICAgIFNvbWUgdGFrZXMgb24gbGlmZTogdGltZSBpcyBub3QgcmlnaWQsIHJlc3QgdGlsbCB5b3UgZmVlbCBndWlsdHkgYW5kIHRoZW4gcmVzdCBhIGJpdCBtb3JlLCAKICAgICAgICAgICAgc3Vuc2NyZWVuIGFsd2F5cyB3b3Jrcywgc3RyZXRjaCwgZWxlY3Ryb2x5dGVzIGFyZSBlc3NlbnRpYWwgd2hpbGUgZmFzdGluZywgcGFpbiDiiaAgZ3JlYXQgYXJ0LCAKICAgICAgICAgICAgZ3JlYXQgYXJ0ID0gcmVwZXRpdGlvbiwgYmUga2luZCwgYmUgb2JzZXJ2YW50LgogICAgICAgICAgPC9wPgoKICAgICAgICAgIDxwPgogICAgICAgICAgICBPbmx5IGdvYWwgZm9yIHRoZSB5ZWFyOiBjb25zdW1lIGxlc3MgbWVkaWEsIG11c2ljLCBhbmQgY2xvdGhpbmcuIGVzcGVjaWFsbHkgY2xvdGhpbmcuCiAgICAgICAgICA8L3A+CgogICAgICAgICAgPCEtLSBNb250aGx5IFN1Z2dlc3Rpb25zIFNlY3Rpb24gLS0+CiAgICAgICAgICA8ZGl2IGNsYXNzPSJtdC02IHB0LTQiPgogICAgICAgICAgICA8aDIgY2xhc3M9Im1iLTMiPgogICAgICAgICAgICAgIE1vbnRobHkgU3VnZ2VzdGlvbnM6CiAgICAgICAgICAgIDwvaDI+CiAgICAgICAgICAgIAogICAgICAgICAgICA8ZGl2IGNsYXNzPSJzcGFjZS15LTIiPgogICAgICAgICAgICAgIDxwPgogICAgICAgICAgICAgICAgPHN0cm9uZz5BcnRpY2xlIHlvdSBzaG91bGQgcmVhZDo8L3N0cm9uZz4gCiAgICAgICAgICAgICAgICA8YSAKICAgICAgICAgICAgICAgICAgaHJlZj0iaHR0cHM6Ly90aGVjcmVhdGl2ZWluZGVwZW5kZW50LmNvbS9wZW9wbGUvYmpvcmstb24tbmF0dXJlLWFuZC10ZWNobm9sb2d5LyIgCiAgICAgICAgICAgICAgICAgIHRhcmdldD0iX2JsYW5rIiAKICAgICAgICAgICAgICAgICAgcmVsPSJub29wZW5lciBub3JlZmVycmVyIgogICAgICAgICAgICAgICAgPgogICAgICAgICAgICAgICAgICBCasO2cmsgb24gbmF0dXJlIGFuZCB0ZWNobm9sb2d5CiAgICAgICAgICAgICAgICA8L2E+CiAgICAgICAgICAgICAgPC9wPgoKICAgICAgICAgICAgICA8cD4KICAgICAgICAgICAgICAgIDxzdHJvbmc+VmlkZW8geW91IHNob3VsZCB3YXRjaDo8L3N0cm9uZz4gCiAgICAgICAgICAgICAgICA8YSAKICAgICAgICAgICAgICAgICAgaHJlZj0iaHR0cHM6Ly93d3cueW91dHViZS5jb20vd2F0Y2g/dj1MMkVPM2FYVFd3ZyZsaXN0PUxMJmluZGV4PTQiIAogICAgICAgICAgICAgICAgICB0YXJnZXQ9Il9ibGFuayIgCiAgICAgICAgICAgICAgICAgIHJlbD0ibm9vcGVuZXIgbm9yZWZlcnJlciIKICAgICAgICAgICAgICAgID4KICAgICAgICAgICAgICAgICAgUGF0dGkgU21pdGggSW50ZXJ2aWV3IHwgQWR2aWNlIHRvIHRoZSBZb3VuZwogICAgICAgICAgICAgICAgPC9hPgogICAgICAgICAgICAgIDwvcD4KCiAgICAgICAgICAgICAgPHA+CiAgICAgICAgICAgICAgICA8c3Ryb25nPkFsYnVtIHlvdSBzaG91bGQgbGlzdGVuIHRvOjwvc3Ryb25nPiAKICAgICAgICAgICAgICAgIDxhIAogICAgICAgICAgICAgICAgICBocmVmPSJodHRwczovL3lvdXR1YmUuY29tL3BsYXlsaXN0P2xpc3Q9UExNR052LU1QUVg4T0M3Rm9zdFQyYkZ6MWZ4bGlwemRNQiZzaT1DaE1fOHM2UUppSmtNNzlSIiAKICAgICAgICAgICAgICAgICAgdGFyZ2V0PSJfYmxhbmsiIAogICAgICAgICAgICAgICAgICByZWw9Im5vb3BlbmVyIG5vcmVmZXJyZXIiCiAgICAgICAgICAgICAgICA+CiAgICAgICAgICAgICAgICAgIEdyb292eSBJbmRpYW4gU3VtbWVyCiAgICAgICAgICAgICAgICA8L2E+CiAgICAgICAgICAgICAgPC9wPgoKICAgICAgICAgICAgICA8cD4KICAgICAgICAgICAgICAgIDxzdHJvbmc+Qm9vayB5b3Ugc2hvdWxkIHJlYWQ6PC9zdHJvbmc+IAogICAgICAgICAgICAgICAgPGEgCiAgICAgICAgICAgICAgICAgIGhyZWY9Imh0dHBzOi8vd3d3LmFtYXpvbi5jb20vRGlzYXBwZWFyYW5jZS1SaXR1YWxzLVRvcG9sb2d5LVByZXNlbnQvZHAvMTUwOTU0Mjc2MCIgCiAgICAgICAgICAgICAgICAgIHRhcmdldD0iX2JsYW5rIiAKICAgICAgICAgICAgICAgICAgcmVsPSJub29wZW5lciBub3JlZmVycmVyIgogICAgICAgICAgICAgICAgPgogICAgICAgICAgICAgICAgICBUaGUgRGlzYXBwZWFyYW5jZSBvZiBSaXR1YWxzCiAgICAgICAgICAgICAgICA8L2E+CiAgICAgICAgICAgICAgPC9wPgoKICAgICAgICAgICAgICA8cD4KICAgICAgICAgICAgICAgIDxzdHJvbmc+TW92aWUgWW91IFNob3VsZCBXYXRjaDo8L3N0cm9uZz4gCiAgICAgICAgICAgICAgICA8YSAKICAgICAgICAgICAgICAgICAgaHJlZj0iaHR0cHM6Ly9sZXR0ZXJib3hkLmNvbS9maWxtL29ta2FyYS8iIAogICAgICAgICAgICAgICAgICB0YXJnZXQ9Il9ibGFuayIgCiAgICAgICAgICAgICAgICAgIHJlbD0ibm9vcGVuZXIgbm9yZWZlcnJlciIKICAgICAgICAgICAgICAgID4KICAgICAgICAgICAgICAgICAgT21rYXJhCiAgICAgICAgICAgICAgICA8L2E+CiAgICAgICAgICAgICAgPC9wPgogICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgIDwvZGl2PgoKICAgICAgICAgIDwhLS0gUXVvdGUgU2VjdGlvbiAtLT4KICAgICAgICAgIDxkaXYgY2xhc3M9Im10LTYgcHQtNCI+CiAgICAgICAgICAgIDxwPgogICAgICAgICAgICAgIEFueXdheSwgaGVyZSdzIGEgcXVvdGUgSSBsb3ZlOgogICAgICAgICAgICA8L3A+CiAgICAgICAgICAgIAogICAgICAgICAgICA8YmxvY2txdW90ZSBjbGFzcz0ibXQtNCBwbC00Ij4KICAgICAgICAgICAgICAiSSBhbHNvIGFtIG90aGVyIHRoYW4gd2hhdCBJIGltYWdpbmUgbXlzZWxmIHRvIGJlLiBUbyBrbm93IHRoaXMgaXMgZm9yZ2l2ZW5lc3MuIiAKICAgICAgICAgICAgICA8Y2l0ZSBjbGFzcz0ibXQtMiBub3QtaXRhbGljIj7igJQgU2ltb25lIFdlaWw8L2NpdGU+CiAgICAgICAgICAgIDwvYmxvY2txdW90ZT4KICAgICAgICAgIDwvZGl2PgoKICAgICAgICAgIDxkaXYgY2xhc3M9Im10LTYgcHQtNCI+CiAgICAgICAgICAgIDxwPgogICAgICAgICAgICAgIFRoYXQgaXMgYWxsIGZvciBub3cuIEknbGwgYWRkIG1vcmUgc3R1ZmYgd2l0aCB0aW1lLiBBbHNvLCBoaXQgbWUgdXAgb24gaW5zdGFncmFtIGlmIHlvdSB3YW50IHRvIGxvc2UgdG8gbWUgYXQgY2hlc3MuIENhY2hlIHlvdSBsYXRlci4KICAgICAgICAgICAgPC9wPgogICAgICAgICAgPC9kaXY+CgogICAgICAgICAgPCEtLSBUaHJlZSBzdGFycyBsaWtlIEVsaWphaCdzIHBhZ2UgLS0+CiAgICAgICAgICA8ZGl2IGNsYXNzPSJtdC02IHB0LTQgdGV4dC1jZW50ZXIiPgogICAgICAgICAgICA8c3Bhbj7ii4bii4bii4Y8L3NwYW4+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICA8L2Rpdj4KICAgICAgPC9tYWluPgogICAgPC9kaXY+CiAgPC9ib2R5Pgo8L2h0bWw+Cg==">domain_2025.txt</a></pre>
     <script>
@@ -120,6 +170,9 @@
         var dataLinks = document.querySelectorAll('a[href^="data:text/html;base64,"]');
         var rootPre = document.querySelector("pre");
         var marker = "base64,";
+        var guestbookHash = "#guestbook_app";
+        var guestbookStorageKey = "guestbook_canvas_cells_v1";
+        var guestbookApp = null;
         var i;
 
         function injectMobileFitStyles(htmlText) {
@@ -211,6 +264,416 @@
             .replace(/>/g, "&gt;");
         }
 
+        function createGuestbookApp() {
+          if (guestbookApp) {
+            return guestbookApp;
+          }
+
+          var container = document.createElement("div");
+          var toolbar = document.createElement("div");
+          var canvas = document.createElement("canvas");
+          var ctx;
+          var dpr = 1;
+          var cellWidth = 10;
+          var cellHeight = 20;
+          var baseline = 2;
+          var offsetX = 0;
+          var offsetY = 0;
+          var dragging = false;
+          var moved = false;
+          var lastDragX = 0;
+          var lastDragY = 0;
+          var cursorX = 0;
+          var cursorY = 0;
+          var cursorActive = false;
+          var frameId = 0;
+          var saveTimer = 0;
+          var cellMap = new Map();
+
+          // Build a stable key for a world-space character cell.
+          function mapKey(worldX, worldY) {
+            return String(worldX) + "," + String(worldY);
+          }
+
+          // Write one character to the world map and schedule persistence.
+          function setCell(worldX, worldY, value) {
+            var key = mapKey(worldX, worldY);
+
+            if (!value || value === " ") {
+              cellMap.delete(key);
+            } else {
+              cellMap.set(key, value);
+            }
+
+            if (saveTimer) {
+              window.clearTimeout(saveTimer);
+            }
+
+            saveTimer = window.setTimeout(saveToStorage, 350);
+          }
+
+          // Read one character from the world map.
+          function getCell(worldX, worldY) {
+            var value = cellMap.get(mapKey(worldX, worldY));
+            return value || "";
+          }
+
+          // Persist all non-empty world cells to localStorage.
+          function saveToStorage() {
+            var packed = [];
+
+            cellMap.forEach(function (value, key) {
+              packed.push([key, value]);
+            });
+
+            try {
+              localStorage.setItem(guestbookStorageKey, JSON.stringify(packed));
+            } catch (error) {
+              // Ignore quota/storage errors.
+            }
+          }
+
+          // Restore previously saved world cells from localStorage.
+          function loadFromStorage() {
+            var raw;
+            var parsed;
+            var idx;
+
+            try {
+              raw = localStorage.getItem(guestbookStorageKey);
+            } catch (error) {
+              return;
+            }
+
+            if (!raw) {
+              return;
+            }
+
+            try {
+              parsed = JSON.parse(raw);
+            } catch (error) {
+              return;
+            }
+
+            if (!Array.isArray(parsed)) {
+              return;
+            }
+
+            for (idx = 0; idx < parsed.length; idx += 1) {
+              var item = parsed[idx];
+              if (!Array.isArray(item) || item.length !== 2) {
+                continue;
+              }
+
+              if (typeof item[0] !== "string" || typeof item[1] !== "string") {
+                continue;
+              }
+
+              if (item[1].length !== 1 || item[1] === " ") {
+                continue;
+              }
+
+              cellMap.set(item[0], item[1]);
+            }
+          }
+
+          // Convert a mouse position on screen into absolute world cell coordinates.
+          function clientToWorld(clientX, clientY) {
+            var rect = canvas.getBoundingClientRect();
+            var screenX = clientX - rect.left;
+            var screenY = clientY - rect.top;
+
+            return {
+              worldX: Math.floor((screenX + offsetX) / cellWidth),
+              worldY: Math.floor((screenY + offsetY) / cellHeight),
+            };
+          }
+
+          function moveCursor(dx, dy) {
+            cursorX += dx;
+            cursorY += dy;
+          }
+
+          // Trackpad/mouse-wheel panning updates the camera offset.
+          function onWheel(event) {
+            event.preventDefault();
+            offsetX += event.deltaX;
+            offsetY += event.deltaY;
+          }
+
+          // Start drag-panning with left mouse button.
+          function onMouseDown(event) {
+            if (event.button !== 0) {
+              return;
+            }
+
+            dragging = true;
+            moved = false;
+            lastDragX = event.clientX;
+            lastDragY = event.clientY;
+            canvas.classList.add("dragging");
+            canvas.focus();
+          }
+
+          // Continue drag-panning while mouse is held.
+          function onMouseMove(event) {
+            var dx;
+            var dy;
+
+            if (!dragging) {
+              return;
+            }
+
+            dx = event.clientX - lastDragX;
+            dy = event.clientY - lastDragY;
+
+            if (dx !== 0 || dy !== 0) {
+              moved = true;
+            }
+
+            offsetX -= dx;
+            offsetY -= dy;
+            lastDragX = event.clientX;
+            lastDragY = event.clientY;
+          }
+
+          // End dragging; if no movement happened, treat it as a click-to-place-cursor.
+          function onMouseUp(event) {
+            var hit;
+
+            if (!dragging || event.button !== 0) {
+              return;
+            }
+
+            dragging = false;
+            canvas.classList.remove("dragging");
+
+            if (!moved) {
+              hit = clientToWorld(event.clientX, event.clientY);
+              cursorX = hit.worldX;
+              cursorY = hit.worldY;
+              cursorActive = true;
+            }
+          }
+
+          // Keyboard editing writes directly into world cells and moves cursor.
+          function onKeyDown(event) {
+            if (!cursorActive) {
+              return;
+            }
+
+            if (event.metaKey || event.ctrlKey) {
+              return;
+            }
+
+            if (event.key === "Backspace") {
+              event.preventDefault();
+              moveCursor(-1, 0);
+              setCell(cursorX, cursorY, "");
+              return;
+            }
+
+            if (event.key === "Delete") {
+              event.preventDefault();
+              setCell(cursorX, cursorY, "");
+              return;
+            }
+
+            if (event.key === "Enter") {
+              event.preventDefault();
+              cursorX = 0;
+              cursorY += 1;
+              return;
+            }
+
+            if (event.key === "ArrowLeft") {
+              event.preventDefault();
+              moveCursor(-1, 0);
+              return;
+            }
+
+            if (event.key === "ArrowRight") {
+              event.preventDefault();
+              moveCursor(1, 0);
+              return;
+            }
+
+            if (event.key === "ArrowUp") {
+              event.preventDefault();
+              moveCursor(0, -1);
+              return;
+            }
+
+            if (event.key === "ArrowDown") {
+              event.preventDefault();
+              moveCursor(0, 1);
+              return;
+            }
+
+            if (event.key === "Tab") {
+              event.preventDefault();
+              moveCursor(2, 0);
+              return;
+            }
+
+            if (event.key.length === 1 && !event.altKey) {
+              event.preventDefault();
+              setCell(cursorX, cursorY, event.key);
+              moveCursor(1, 0);
+            }
+          }
+
+          // Keep the canvas resolution in sync with window size and device pixel ratio.
+          function resizeCanvas() {
+            var rect;
+            var m;
+
+            dpr = window.devicePixelRatio || 1;
+            rect = canvas.getBoundingClientRect();
+            canvas.width = Math.max(1, Math.floor(rect.width * dpr));
+            canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            ctx.font = "16px monospace";
+            ctx.textBaseline = "top";
+
+            m = ctx.measureText("M");
+            cellWidth = Math.max(8, Math.ceil(m.width));
+            cellHeight = 20;
+            baseline = 2;
+          }
+
+          // Render loop: clear, draw only visible cells, then draw blinking cursor.
+          function render() {
+            var width = canvas.clientWidth;
+            var height = canvas.clientHeight;
+            var minX = Math.floor(offsetX / cellWidth) - 1;
+            var maxX = Math.floor((offsetX + width) / cellWidth) + 1;
+            var minY = Math.floor(offsetY / cellHeight) - 1;
+            var maxY = Math.floor((offsetY + height) / cellHeight) + 1;
+            var now = Date.now();
+
+            ctx.clearRect(0, 0, width, height);
+            ctx.fillStyle = "#000000";
+
+            cellMap.forEach(function (value, key) {
+              var comma = key.indexOf(",");
+              var worldX;
+              var worldY;
+              var drawX;
+              var drawY;
+
+              if (comma <= 0) {
+                return;
+              }
+
+              worldX = parseInt(key.slice(0, comma), 10);
+              worldY = parseInt(key.slice(comma + 1), 10);
+
+              if (!isFinite(worldX) || !isFinite(worldY)) {
+                return;
+              }
+
+              if (worldX < minX || worldX > maxX || worldY < minY || worldY > maxY) {
+                return;
+              }
+
+              drawX = worldX * cellWidth - offsetX;
+              drawY = worldY * cellHeight - offsetY;
+              ctx.fillText(value, drawX, drawY + baseline);
+            });
+
+            if (cursorActive && Math.floor(now / 450) % 2 === 0) {
+              var cursorDrawX = cursorX * cellWidth - offsetX;
+              var cursorDrawY = cursorY * cellHeight - offsetY;
+
+              if (
+                cursorDrawX >= -cellWidth &&
+                cursorDrawX <= width + cellWidth &&
+                cursorDrawY >= -cellHeight &&
+                cursorDrawY <= height + cellHeight
+              ) {
+                ctx.fillRect(cursorDrawX, cursorDrawY + 2, 2, cellHeight - 4);
+              }
+            }
+
+            if (guestbookApp.active) {
+              frameId = window.requestAnimationFrame(render);
+            } else {
+              frameId = 0;
+            }
+          }
+
+          container.id = "guestbook-canvas-app";
+
+          toolbar.id = "guestbook-toolbar";
+          toolbar.innerHTML =
+            '<a href="#">..</a> | wheel/drag: pan | click: cursor | type: write | cells: ' +
+            "<span id=\"guestbook-cell-count\">0</span>";
+
+          canvas.id = "guestbook-canvas";
+          canvas.setAttribute("tabindex", "0");
+
+          container.appendChild(toolbar);
+          container.appendChild(canvas);
+          document.body.appendChild(container);
+
+          ctx = canvas.getContext("2d");
+
+          loadFromStorage();
+
+          canvas.addEventListener("wheel", onWheel, { passive: false });
+          canvas.addEventListener("mousedown", onMouseDown);
+          window.addEventListener("mousemove", onMouseMove);
+          window.addEventListener("mouseup", onMouseUp);
+          canvas.addEventListener("keydown", onKeyDown);
+          window.addEventListener("resize", resizeCanvas);
+
+          toolbar.addEventListener("click", function (event) {
+            var target = event.target;
+
+            if (target && target.tagName === "A") {
+              event.preventDefault();
+              window.location.hash = "";
+            }
+          });
+
+          guestbookApp = {
+            container: container,
+            canvas: canvas,
+            active: false,
+            start: function () {
+              var countNode = toolbar.querySelector("#guestbook-cell-count");
+
+              this.active = true;
+              container.style.display = "block";
+              resizeCanvas();
+              canvas.focus();
+
+              if (countNode) {
+                countNode.textContent = String(cellMap.size);
+              }
+
+              if (!frameId) {
+                frameId = window.requestAnimationFrame(render);
+              }
+            },
+            stop: function () {
+              this.active = false;
+              container.style.display = "none";
+              if (saveTimer) {
+                window.clearTimeout(saveTimer);
+                saveTimer = 0;
+              }
+              saveToStorage();
+            },
+            getMapSize: function () {
+              return cellMap.size;
+            },
+          };
+
+          return guestbookApp;
+        }
+
         for (i = 0; i < dataLinks.length; i += 1) {
           var href = dataLinks[i].getAttribute("href");
           var markerIndex = href.indexOf(marker);
@@ -235,8 +698,9 @@
           management: ["contact.txt"],
           ebook: ["tenets_of_muscular_proportionality.txt"],
           youtube: ["channel.txt"],
-          music: ["slouch.txt", "dowjones.txt"],
+          music: ["slouch.txt", "dowjones.txt", "spotiy_account.txt"],
           monthly_suggestions: ["article.txt", "music.txt", "movie.txt"],
+          guestbook: ["guestbook.txt"],
           archived_page: ["domain_2025.txt"],
         };
 
@@ -292,6 +756,19 @@
 
           var hash = window.location.hash || "";
           var prefix = "#folder=";
+
+          if (hash === guestbookHash) {
+            rootPre.style.display = "none";
+            createGuestbookApp().start();
+            document.title = "guestbook";
+            return;
+          }
+
+          if (guestbookApp) {
+            guestbookApp.stop();
+          }
+
+          rootPre.style.display = "block";
 
           if (hash.indexOf(prefix) === 0) {
             var folderName = decodeURIComponent(hash.slice(prefix.length));
